@@ -1,3 +1,5 @@
+let filmOpened = false;
+
 // ✅ ตรวจรหัสผ่าน
 function checkPassword() {
   const passwordInput = document.getElementById("password").value.trim();
@@ -61,11 +63,57 @@ function goToMenu() {
   document.getElementById("menu-page").classList.remove("hidden");
 }
 
-// ✅ กลับหน้าเมนู (ใช้ได้ทุกหน้า)
+// ✅ กลับหน้าเมนู
 function backToMenu() {
-  const pages = ["gallery-page", "film-roll-page"];
-  pages.forEach((id) => document.getElementById(id).classList.add("hidden"));
-  document.getElementById("menu-page").classList.remove("hidden");
+  const filmStrip = document.getElementById("film-strip");
+  const filmWrapper = document.getElementById("film-wrapper");
+  const filmPage = document.getElementById("film-roll-page");
+  const galleryPage = document.getElementById("gallery-page");
+  const menuPage = document.getElementById("menu-page");
+
+  const fadeOutDuration = 400;
+
+  if (!filmPage.classList.contains("hidden")) {
+    if (!filmOpened) {
+      filmPage.classList.add("fade-out");
+      setTimeout(() => {
+        filmPage.classList.add("hidden");
+        filmPage.classList.remove("fade-out");
+        menuPage.classList.remove("hidden");
+        menuPage.classList.add("fade-in");
+        setTimeout(() => menuPage.classList.remove("fade-in"), 600);
+      }, fadeOutDuration);
+    } else {
+      filmStrip.classList.remove("active");
+      filmOpened = false;
+      filmWrapper.style.transition = "transform 1s ease";
+      filmStrip.style.transition = "transform 1s ease";
+      filmWrapper.style.transform = "translateX(0)";
+      filmStrip.style.transform = "translateX(-70%)";
+
+      setTimeout(() => {
+        filmPage.classList.add("fade-out");
+        setTimeout(() => {
+          filmPage.classList.add("hidden");
+          filmPage.classList.remove("fade-out");
+          menuPage.classList.remove("hidden");
+          menuPage.classList.add("fade-in");
+          setTimeout(() => menuPage.classList.remove("fade-in"), 600);
+          filmOpened = false;
+        }, fadeOutDuration);
+      }, 1000);
+    }
+  } else if (!galleryPage.classList.contains("hidden")) {
+    galleryPage.classList.add("fade-out");
+    setTimeout(() => {
+      galleryPage.classList.add("hidden");
+      galleryPage.classList.remove("fade-out");
+      menuPage.classList.remove("hidden");
+      menuPage.classList.add("fade-in");
+      setTimeout(() => menuPage.classList.remove("fade-in"), 600);
+    }, fadeOutDuration);
+  }
+
   document.body.classList.remove("no-scroll");
 }
 
@@ -90,20 +138,18 @@ function setupGallery() {
 
   updateGallery();
 
-  // ✅ ปุ่มลูกศร (เฉพาะคอมพ์)
   const isMobile = window.innerWidth <= 700;
   if (!isMobile) {
-    document.getElementById("arrow-left").addEventListener("click", () => {
+    document.getElementById("arrow-left").onclick = () => {
       currentIndex = (currentIndex - 1 + total) % total;
       updateGallery(true);
-    });
-    document.getElementById("arrow-right").addEventListener("click", () => {
+    };
+    document.getElementById("arrow-right").onclick = () => {
       currentIndex = (currentIndex + 1) % total;
       updateGallery(true);
-    });
+    };
   }
 
-  // ✅ สำหรับมือถือ (ลากนิ้ว)
   gallery.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
     isDragging = true;
@@ -116,22 +162,17 @@ function setupGallery() {
   });
 
   function handleSwipe(delta) {
-    if (delta > 50) {
-      currentIndex = (currentIndex - 1 + total) % total;
-    } else if (delta < -50) {
-      currentIndex = (currentIndex + 1) % total;
-    }
+    if (delta > 50) currentIndex = (currentIndex - 1 + total) % total;
+    else if (delta < -50) currentIndex = (currentIndex + 1) % total;
     updateGallery(true);
   }
 
-  // ฟังก์ชันอัปเดตภาพ active + คำบรรยาย
   function updateGallery(withTransition = false) {
     items.forEach((item, i) => {
       const diff = (i - currentIndex + total) % total;
       item.style.transition = withTransition
         ? "transform 0.5s ease, opacity 0.5s ease"
         : "none";
-
       if (diff === 0) {
         item.style.transform = "translateX(0) scale(1)";
         item.style.opacity = "1";
@@ -147,90 +188,85 @@ function setupGallery() {
         item.style.zIndex = 1;
       }
     });
-
     caption.textContent = items[currentIndex].dataset.caption;
   }
 }
 
-// 💙 เมนูที่ 2: ฟิล์มกลิ้ง
-let filmOpened = false;
-
+// 💙 เมนูที่ 2: ฟิล์มกลิ้ง (แก้ใหม่สุด)
 function openFilmRoll() {
-  document.getElementById("menu-page").classList.add("hidden");
-  document.getElementById("film-roll-page").classList.remove("hidden");
-
-  const filmStrip = document.getElementById("film-strip");
+  const menuPage = document.getElementById("menu-page");
+  const filmPage = document.getElementById("film-roll-page");
   const filmWrapper = document.getElementById("film-wrapper");
+  const filmStrip = document.getElementById("film-strip");
+
+  menuPage.classList.add("hidden");
+  filmPage.classList.remove("hidden");
+  filmPage.classList.add("fade-in");
+  setTimeout(() => filmPage.classList.remove("fade-in"), 600);
+
+  // ✅ รีเซ็ตทุกครั้ง
+  filmStrip.classList.remove("active");
+  filmWrapper.style.transform = "translateX(0)";
+  filmStrip.style.transform = "translateX(-80%)";
+  filmOpened = false;
+
   let isDragging = false;
   let startX = 0;
   let scrollLeft = 0;
 
-  filmStrip.addEventListener("mousedown", (e) => {
+  // 🎞️ เริ่มลากหรือคลิกฟิล์ม
+  filmStrip.onmousedown = (e) => {
+    // ให้ฟิล์มขยับออกนิดก่อนเสมอ
     if (!filmOpened) {
       filmStrip.classList.add("active");
-      filmWrapper.style.transform = "translateX(-60px)";
+      filmWrapper.style.transform = "translateX(-80px)";
+      filmStrip.style.transform = "translateX(0)";
       filmOpened = true;
     }
     isDragging = true;
     startX = e.pageX - filmStrip.offsetLeft;
     scrollLeft = filmStrip.scrollLeft;
     filmStrip.style.cursor = "grabbing";
-  });
+  };
 
-  filmStrip.addEventListener("mouseup", () => {
+  filmStrip.onmouseup = () => {
     isDragging = false;
     filmStrip.style.cursor = "grab";
-  });
+  };
 
-  filmStrip.addEventListener("mousemove", (e) => {
+  filmStrip.onmouseleave = () => {
+    isDragging = false;
+  };
+
+  filmStrip.onmousemove = (e) => {
     if (!isDragging || !filmOpened) return;
     const x = e.pageX - filmStrip.offsetLeft;
-    const walk = (x - startX) * 1.5;
+    const walk = (x - startX) * 1.3;
     filmStrip.scrollLeft = scrollLeft - walk;
-  });
+  };
 
   // 📱 มือถือ
   let touchStartX = 0;
   let touchScrollLeft = 0;
-
-  filmStrip.addEventListener("touchstart", (e) => {
+  filmStrip.ontouchstart = (e) => {
     if (!filmOpened) {
       filmStrip.classList.add("active");
-      filmWrapper.style.transform = "translateX(-60px)";
+      filmWrapper.style.transform = "translateX(-80px)";
+      filmStrip.style.transform = "translateX(0)";
       filmOpened = true;
     }
     touchStartX = e.touches[0].clientX;
     touchScrollLeft = filmStrip.scrollLeft;
-  });
-
-  filmStrip.addEventListener("touchmove", (e) => {
+  };
+  filmStrip.ontouchmove = (e) => {
     if (!filmOpened) return;
     const x = e.touches[0].clientX;
-    const walk = (x - touchStartX) * 1.5;
+    const walk = (x - touchStartX) * 1.3;
     filmStrip.scrollLeft = touchScrollLeft - walk;
-  });
+  };
 }
 
-function backToMenu() {
-  const filmStrip = document.getElementById("film-strip");
-  const filmWrapper = document.getElementById("film-wrapper");
-
-  if (!document.getElementById("film-roll-page").classList.contains("hidden")) {
-    filmStrip.classList.remove("active");
-    filmWrapper.style.transform = "translateX(0)";
-    filmOpened = false;
-    filmStrip.style.transform = "translateX(-80%)"; // ✅ กลับมาโผล่นิดนึง
-
-    setTimeout(() => {
-      document.getElementById("film-roll-page").classList.add("hidden");
-      document.getElementById("menu-page").classList.remove("hidden");
-    }, 1000);
-  }
-}
-
-
-
-// ✅ รองรับกด Enter
+// ✅ รองรับ Enter
 document.getElementById("password").addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
