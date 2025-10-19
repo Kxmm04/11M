@@ -261,6 +261,12 @@ button:hover {
     transition: opacity 0.4s ease;
 }
 
+/* 💙 ป้องกันการเลื่อนทั้งหน้าเวลาลากรูปในมือถือ */
+body.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+  touch-action: none; /* ป้อง gesture scroll ในมือถือ */
+}
 
 /* 🪄 Responsive */
 @media (max-width: 700px) {

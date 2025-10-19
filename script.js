@@ -65,6 +65,8 @@ function goToMenu() {
 function openGallery() {
   document.getElementById("menu-page").classList.add("hidden");
   document.getElementById("gallery-page").classList.remove("hidden");
+
+  document.body.classList.add("no-scroll"); // 💙 ล็อกการเลื่อน
   setupGallery();
 }
 
@@ -72,6 +74,8 @@ function openGallery() {
 function backToMenu() {
   document.getElementById("gallery-page").classList.add("hidden");
   document.getElementById("menu-page").classList.remove("hidden");
+
+  document.body.classList.remove("no-scroll"); // 💙 ปลดล็อกการเลื่อน
 }
 
 /* 💙 ตั้งค่า Gallery */
