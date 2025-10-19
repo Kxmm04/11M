@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ครบรอบ 11 M</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="password-page">
+    <h1>💙 วันครบรอบวันไหนเอ่ยย 💙</h1>
+    <input 
+      type="password" 
+      id="password" 
+      placeholder="วันครบรอบ..." 
+      maxlength="2" 
+      inputmode="numeric">
+    <button id="submitBtn" onclick="checkPassword()">ไปกันเยยย</button>
+  </div>
+
+  <div class="container hidden" id="menu-page">
+    <div class="menu">
+      <button>เมนูที่ 1</button>
+      <button>เมนูที่ 2</button>
+      <button>เมนูที่ 3</button>
+      <button>เมนูที่ 4</button>
+    </div>
+  </div>
+
+  <!-- 🌟 Modal แจ้งเตือน -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <h2 id="modal-title"></h2>
+      <p id="modal-message"></p>
+      <button id="closeModal">ปิด</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
