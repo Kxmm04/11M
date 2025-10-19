@@ -214,45 +214,54 @@ button:hover {
 
 /* 💙 ปุ่มลูกศรแบบใส (Glass Effect) */
 .arrow {
-  all: unset; /* ล้างสไตล์ button เดิม */
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-size: 1.8rem;
-  cursor: pointer;
-  z-index: 10;
-  backdrop-filter: blur(8px); /* เบลอพื้นหลัง */
-  background: rgba(255, 255, 255, 0.25); /* สีใสโปร่ง */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  transition: all 0.3s ease;
-  user-select: none;
+    all: unset;
+    /* ล้างสไตล์ button เดิม */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+    /* เบลอพื้นหลัง */
+    background: rgba(255, 255, 255, 0.25);
+    /* สีใสโปร่ง */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    transition: all 0.3s ease;
+    user-select: none;
 }
 
 .arrow:hover {
-  background: rgba(255, 255, 255, 0.45);
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.45);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .arrow:focus,
 .arrow:active {
-  outline: none;
-  box-shadow: none;
-  background: rgba(255, 255, 255, 0.35);
-  transform: translateY(-50%) scale(0.95);
+    outline: none;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.35);
+    transform: translateY(-50%) scale(0.95);
 }
 
 /* จัดตำแหน่ง */
-#arrow-left { left: calc(50% - 220px); }
-#arrow-right { right: calc(50% - 220px); }
+#arrow-left {
+    left: calc(50% - 220px);
+}
+
+#arrow-right {
+    right: calc(50% - 220px);
+}
+
 /* คำบรรยาย */
 .caption {
     margin-top: 20px;
@@ -263,10 +272,113 @@ button:hover {
 
 /* 💙 ป้องกันการเลื่อนทั้งหน้าเวลาลากรูปในมือถือ */
 body.no-scroll {
-  overflow: hidden;
-  height: 100vh;
-  touch-action: none; /* ป้อง gesture scroll ในมือถือ */
+    overflow: hidden;
+    height: 100vh;
+    touch-action: none;
+    /* ป้อง gesture scroll ในมือถือ */
 }
+
+.film-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 220px;
+  margin: 0 auto;
+  overflow: hidden;
+  perspective: 1000px;
+}
+
+.film-wrapper {
+  display: flex;
+  align-items: center;
+  transition: transform 1s ease;
+}
+
+/* กระบอกฟิล์ม */
+.film-can {
+  flex-shrink: 0;
+  width: 70px;
+  height: 110px;
+  background: linear-gradient(90deg, #222, #111 40%, #444 100%);
+  border-radius: 10px;
+  box-shadow: inset -5px 0 10px rgba(0, 0, 0, 0.6),
+              3px 3px 10px rgba(0, 0, 0, 0.4);
+  z-index: 5;
+}
+
+/* ฟิล์ม */
+.film-strip {
+  display: flex;
+  align-items: center;
+  height: 120px;
+  background: linear-gradient(180deg, #222, #111 40%, #333);
+  border-radius: 6px;
+  border: 6px solid #111;
+  margin-left: -20px;
+  overflow-x: hidden;
+  transform-origin: left center;
+  transform: translateX(-80%); /* ✅ โผล่ออกมานิดนึงให้ลากง่าย */
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.1),
+              0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.8s ease;
+  cursor: grab;
+}
+
+/* เมื่อเปิดฟิล์มออก */
+.film-strip.active {
+  overflow-x: scroll;
+  transform: translateX(0); /* ✅ เลื่อนออกเต็ม */
+}
+
+.film-strip::-webkit-scrollbar {
+  display: none;
+}
+
+/* เฟรมภาพหรือวิดีโอ */
+.frame {
+  background: #000;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 6px;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.frame img, .frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+
+/* แสงสะท้อน */
+.film-strip::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 200%;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.film-strip.shining::after {
+  animation: filmShine 3s linear infinite;
+}
+
+@keyframes filmShine {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0%); }
+}
+
 
 /* 🪄 Responsive */
 @media (max-width: 700px) {
@@ -301,5 +413,14 @@ body.no-scroll {
     .gallery-item img {
         width: 220px;
         height: 280px;
+    }
+
+    .film-container {
+        width: 90%;
+    }
+
+    .frame {
+        width: 80px;
+        height: 90px;
     }
 }

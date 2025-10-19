@@ -48,7 +48,7 @@ function showSuccessModal(title) {
   }, 2000);
 }
 
-// ปิด Modal
+// ✅ ปิด Modal
 document.getElementById("closeModal").addEventListener("click", () => {
   const modal = document.getElementById("modal");
   modal.classList.remove("show");
@@ -61,21 +61,20 @@ function goToMenu() {
   document.getElementById("menu-page").classList.remove("hidden");
 }
 
+// ✅ กลับหน้าเมนู (ใช้ได้ทุกหน้า)
+function backToMenu() {
+  const pages = ["gallery-page", "film-roll-page"];
+  pages.forEach((id) => document.getElementById(id).classList.add("hidden"));
+  document.getElementById("menu-page").classList.remove("hidden");
+  document.body.classList.remove("no-scroll");
+}
+
 // ✅ เปิดแกลเลอรี
 function openGallery() {
   document.getElementById("menu-page").classList.add("hidden");
   document.getElementById("gallery-page").classList.remove("hidden");
-
-  document.body.classList.add("no-scroll"); // 💙 ล็อกการเลื่อน
+  document.body.classList.add("no-scroll");
   setupGallery();
-}
-
-// ✅ กลับหน้าเมนู
-function backToMenu() {
-  document.getElementById("gallery-page").classList.add("hidden");
-  document.getElementById("menu-page").classList.remove("hidden");
-
-  document.body.classList.remove("no-scroll"); // 💙 ปลดล็อกการเลื่อน
 }
 
 /* 💙 ตั้งค่า Gallery */
@@ -153,9 +152,86 @@ function setupGallery() {
   }
 }
 
-/* ✅ รองรับกด Enter */
-const passwordInput = document.getElementById("password");
-passwordInput.addEventListener("keypress", function (event) {
+// 💙 เมนูที่ 2: ฟิล์มกลิ้ง
+let filmOpened = false;
+
+function openFilmRoll() {
+  document.getElementById("menu-page").classList.add("hidden");
+  document.getElementById("film-roll-page").classList.remove("hidden");
+
+  const filmStrip = document.getElementById("film-strip");
+  const filmWrapper = document.getElementById("film-wrapper");
+  let isDragging = false;
+  let startX = 0;
+  let scrollLeft = 0;
+
+  filmStrip.addEventListener("mousedown", (e) => {
+    if (!filmOpened) {
+      filmStrip.classList.add("active");
+      filmWrapper.style.transform = "translateX(-60px)";
+      filmOpened = true;
+    }
+    isDragging = true;
+    startX = e.pageX - filmStrip.offsetLeft;
+    scrollLeft = filmStrip.scrollLeft;
+    filmStrip.style.cursor = "grabbing";
+  });
+
+  filmStrip.addEventListener("mouseup", () => {
+    isDragging = false;
+    filmStrip.style.cursor = "grab";
+  });
+
+  filmStrip.addEventListener("mousemove", (e) => {
+    if (!isDragging || !filmOpened) return;
+    const x = e.pageX - filmStrip.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    filmStrip.scrollLeft = scrollLeft - walk;
+  });
+
+  // 📱 มือถือ
+  let touchStartX = 0;
+  let touchScrollLeft = 0;
+
+  filmStrip.addEventListener("touchstart", (e) => {
+    if (!filmOpened) {
+      filmStrip.classList.add("active");
+      filmWrapper.style.transform = "translateX(-60px)";
+      filmOpened = true;
+    }
+    touchStartX = e.touches[0].clientX;
+    touchScrollLeft = filmStrip.scrollLeft;
+  });
+
+  filmStrip.addEventListener("touchmove", (e) => {
+    if (!filmOpened) return;
+    const x = e.touches[0].clientX;
+    const walk = (x - touchStartX) * 1.5;
+    filmStrip.scrollLeft = touchScrollLeft - walk;
+  });
+}
+
+function backToMenu() {
+  const filmStrip = document.getElementById("film-strip");
+  const filmWrapper = document.getElementById("film-wrapper");
+
+  if (!document.getElementById("film-roll-page").classList.contains("hidden")) {
+    filmStrip.classList.remove("active");
+    filmWrapper.style.transform = "translateX(0)";
+    filmOpened = false;
+    filmStrip.style.transform = "translateX(-80%)"; // ✅ กลับมาโผล่นิดนึง
+
+    setTimeout(() => {
+      document.getElementById("film-roll-page").classList.add("hidden");
+      document.getElementById("menu-page").classList.remove("hidden");
+    }, 1000);
+  }
+}
+
+
+
+// ✅ รองรับกด Enter
+document.getElementById("password").addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
     checkPassword();
