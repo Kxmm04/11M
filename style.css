@@ -1,166 +1,299 @@
 body {
-  font-family: "Prompt", sans-serif;
-  background-color: #e8f6ff;
-  color: #333;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  padding: 20px;
-  box-sizing: border-box;
+    font-family: "Prompt", sans-serif;
+    background-color: #e8f6ff;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .container {
-  background: white;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  text-align: center;
-  width: 100%;
-  max-width: 450px;
-  transition: all 0.3s ease;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 450px;
+    transition: all 0.3s ease;
 }
 
 h1 {
-  font-size: 1.6rem;
-  margin-bottom: 20px;
-  line-height: 1.4;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    line-height: 1.4;
 }
 
 input {
-  padding: 12px;
-  border: 2px solid #b3e0ff;
-  border-radius: 10px;
-  width: 100%;
-  margin: 10px 0;
-  font-size: 1rem;
-  text-align: center;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    padding: 12px;
+    border: 2px solid #b3e0ff;
+    border-radius: 10px;
+    width: 100%;
+    margin: 10px 0;
+    font-size: 1rem;
+    text-align: center;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* 💙 เอฟเฟกต์ตอนโฟกัสช่องกรอก */
 input:focus {
-  outline: none;
-  border-color: #4da6ff;
-  box-shadow: 0 0 6px rgba(77, 166, 255, 0.5);
+    outline: none;
+    border-color: #4da6ff;
+    box-shadow: 0 0 6px rgba(77, 166, 255, 0.5);
 }
 
 button {
-  background-color: #66c2ff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin-top: 10px;
-  border-radius: 10px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  width: 100%;
+    background-color: #66c2ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
 }
 
 button:hover {
-  background-color: #4da6ff;
+    background-color: #4da6ff;
 }
 
 .menu {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .hidden {
-  display: none;
+    display: none;
 }
 
 /* 🌟 Modal */
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  padding: 20px;
-  box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .modal.show {
-  opacity: 1;
-  pointer-events: auto;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .modal-content {
-  background: #ffffff;
-  border-radius: 15px;
-  padding: 30px;
-  width: 100%;
-  max-width: 350px;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  transform: translateY(-10px);
-  transition: transform 0.3s ease;
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 30px;
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+    transition: transform 0.3s ease;
 }
 
 .modal.show .modal-content {
-  transform: translateY(0);
+    transform: translateY(0);
 }
 
 .modal-content h2 {
-  color: #ff6666;
-  margin-bottom: 10px;
+    color: #ff6666;
+    margin-bottom: 10px;
 }
 
 .modal-content p {
-  margin-bottom: 20px;
-  color: #333;
+    margin-bottom: 20px;
+    color: #333;
 }
 
 /* เอฟเฟกต์เปลี่ยนหน้า */
 .fade-out {
-  animation: fadeOut 0.4s forwards;
+    animation: fadeOut 0.4s forwards;
 }
 
 .fade-in {
-  animation: fadeIn 0.6s forwards;
+    animation: fadeIn 0.6s forwards;
 }
 
 @keyframes fadeOut {
-  from { opacity: 1; transform: scale(1); }
-  to { opacity: 0; transform: scale(0.97); }
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.97);
+    }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.97); }
-  to { opacity: 1; transform: scale(1); }
+    from {
+        opacity: 0;
+        transform: scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
+
+/* ✅ รูปตอน success */
+.success-img {
+    width: 300px;
+    height: auto;
+    margin-top: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    animation: popIn 0.5s ease;
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 💙 Gallery แบบมีภาพซ้อน */
+#gallery-page {
+    text-align: center;
+}
+
+.gallery-container {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+.gallery {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 350px;
+}
+
+.gallery-item {
+    position: absolute;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.gallery-item img {
+    width: 280px;
+    height: 350px;
+    border-radius: 20px;
+    object-fit: cover;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* 💙 ปุ่มลูกศรแบบใส (Glass Effect) */
+.arrow {
+  all: unset; /* ล้างสไตล์ button เดิม */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 10;
+  backdrop-filter: blur(8px); /* เบลอพื้นหลัง */
+  background: rgba(255, 255, 255, 0.25); /* สีใสโปร่ง */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.arrow:hover {
+  background: rgba(255, 255, 255, 0.45);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.arrow:focus,
+.arrow:active {
+  outline: none;
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* จัดตำแหน่ง */
+#arrow-left { left: calc(50% - 220px); }
+#arrow-right { right: calc(50% - 220px); }
+/* คำบรรยาย */
+.caption {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #555;
+    transition: opacity 0.4s ease;
+}
+
 
 /* 🪄 Responsive */
 @media (max-width: 700px) {
-  h1 {
-    font-size: 1.3rem;
-  }
-  .container {
-    padding: 15px;
-  }
+    h1 {
+        font-size: 1.3rem;
+    }
 
-  .container #submitBtn {
-    width: 60%;
-  }
-  input {
-    font-size: 0.95rem;
-  }
-  button {
-    font-size: 0.9rem;
-  }
-  .modal-content {
-    padding: 19px;
-  }
+    .container {
+        padding: 15px;
+    }
+
+    .container #submitBtn {
+        width: 60%;
+    }
+
+    input {
+        font-size: 0.95rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+
+    .modal-content {
+        padding: 19px;
+    }
+
+    .arrow {
+        display: none !important;
+    }
+
+    .gallery-item img {
+        width: 220px;
+        height: 280px;
+    }
 }

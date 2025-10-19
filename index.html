@@ -1,41 +1,78 @@
 <!DOCTYPE html>
 <html lang="th">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ครบรอบ 11 M</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container" id="password-page">
-    <h1>💙 วันครบรอบวันไหนเอ่ยย 💙</h1>
-    <input 
-      type="password" 
-      id="password" 
-      placeholder="วันครบรอบ..." 
-      maxlength="2" 
-      inputmode="numeric">
-    <button id="submitBtn" onclick="checkPassword()">ไปกันเยยย</button>
-  </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ครบรอบ 11 M</title>
+        <link rel="icon" type="image/png" href="images/icon web.png">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <!-- 💙 หน้าใส่รหัส -->
+        <div class="container" id="password-page">
+            <h1>💙 วันครบรอบวันไหนเอ่ยย 💙</h1>
+            <input type="password" id="password" placeholder="วันครบรอบ..."
+                maxlength="2" inputmode="numeric">
+            <button onclick="checkPassword()">ไปกันเยยย</button>
+        </div>
 
-  <div class="container hidden" id="menu-page">
-    <div class="menu">
-      <button>เมนูที่ 1</button>
-      <button>เมนูที่ 2</button>
-      <button>เมนูที่ 3</button>
-      <button>เมนูที่ 4</button>
-    </div>
-  </div>
+        <!-- 💙 หน้าเมนู -->
+        <div class="container hidden" id="menu-page">
+            <div class="menu">
+                <button onclick="openGallery()">เมนูที่ 1</button>
+                <button>เมนูที่ 2</button>
+                <button>เมนูที่ 3</button>
+                <button>เมนูที่ 4</button>
+            </div>
+        </div>
 
-  <!-- 🌟 Modal แจ้งเตือน -->
-  <div id="modal" class="modal hidden">
-    <div class="modal-content">
-      <h2 id="modal-title"></h2>
-      <p id="modal-message"></p>
-      <button id="closeModal">ปิด</button>
-    </div>
-  </div>
+        <!-- 💙 หน้าแกลเลอรี่ -->
+        <div class="container hidden" id="gallery-page">
+            <h2>💙 รวมภาพความทรงจำ 💙</h2>
+            <div class="gallery-container">
+                <div class="gallery" id="gallery">
+                    <div class="gallery-item"
+                        data-caption="วันที่เราไปดูหนัง ธี่หยด3 😱">
+                        <img src="images/pic1.jpg" alt="pic1">
+                    </div>
+                    <div class="gallery-item"
+                        data-caption="วันที่เรากินบิงซูด้วยกัน">
+                        <img src="images/pic2.jpg" alt="pic2">
+                    </div>
+                    <div class="gallery-item"
+                        data-caption="ไปขอนแก่นนด้วยกันหนุกมากๆ">
+                        <img src="images/pic3.jpg" alt="pic3">
+                    </div>
+                    <div class="gallery-item"
+                        data-caption="รูปนี้น่ารักกันมากกก">
+                        <img src="images/pic4.jpg" alt="pic4">
+                    </div>
+                    <div class="gallery-item"
+                        data-caption="ใส่ชุดนักศึกษาคู่กันน">
+                        <img src="images/pic5.JPG" alt="pic5">
+                    </div>
+                </div>
 
-  <script src="script.js"></script>
-</body>
+                <!-- ลูกศรซ้ายขวา -->
+                <button class="arrow" id="arrow-left">⟨</button>
+                <button class="arrow" id="arrow-right">⟩</button>
+
+                <p class="caption" id="caption">วันที่เราไปเที่ยวทะเล</p>
+            </div>
+
+            <button class="back-btn"
+                onclick="backToMenu()">กลับหน้าเมนู</button>
+        </div>
+
+        <!-- 🌟 Modal -->
+        <div id="modal" class="modal hidden">
+            <div class="modal-content">
+                <h2 id="modal-title"></h2>
+                <p id="modal-message"></p>
+                <button id="closeModal">ปิด</button>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
 </html>
