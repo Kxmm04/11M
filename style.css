@@ -403,81 +403,118 @@ body.no-scroll {
 }
 
 :root {
-  --envelope-tab: #ff93a9;
-  --envelope-cover: #ff7892;
-  --primary: #fff;
-  --shadow-color: rgba(0,0,0,0.25);
-  --txt-color: #e94a7a;
+  --flower-petal: #ff8fab;
+  --flower-center: #ff5c8a;
+  --stem: #3fa34d;
+  --leaf: #59c173;
+  --card-bg: #fff9f9;
+  --text-color: #ff4f8a;
 }
 
-.envelope-wrapper {
-    background: var(--bg-envelope-color);
-    box-shadow: 0 0 30px var(--shadow-color);
-    cursor: pointer;
-  }
-  
-  .envelope-wrapper > .envelope {
-    position: relative;
-    width: 300px;
-    height: 230px;
-  }
-  
-  .envelope-wrapper > .envelope::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    z-index: 2;
-    border-top: 130px solid var(--envelope-tab);
-    border-right: 150px solid transparent;
-    border-left: 150px solid transparent;
-    transform-origin: top;
-    transition: all 0.5s ease-in-out 0.7s;
-  }
-  
-  .envelope-wrapper > .envelope::after {
-    content: "";
-    position: absolute;
-    z-index: 2;
-    width: 0px;
-    height: 0px;
-    border-top: 130px solid transparent;
-    border-right: 150px solid var(--envelope-cover);
-    border-bottom: 106px solid var(--envelope-cover);
-    border-left: 150px solid var(--envelope-cover);
-  }
-  
-  .envelope > .letter {
-    position: absolute;
-    right: 20%;
-    bottom: 0;
-    width: 54%;
-    height: 80%;
-    background: var(--primary);
-    text-align: center;
-    transition: all 1s ease-in-out;
-    box-shadow: 0 0 5px var(--shadow-color);
-    padding: 20px 10px;
-    font-family: 'Itim', cursive;
-  }
-  
-  .envelope > .letter > .text {
-    color: var(--txt-color);
-    text-align: left;
-    font-size: 10px;
-    font-family: 'Itim', cursive;
-  }
-  
-  /* ตอนเปิดซอง */
-  .flap > .envelope::before {
-    transform: rotateX(180deg);
-    z-index: 0;
-  }
-  
-  .flap > .envelope > .letter {
-    bottom: 100px;
-    transform: scale(1.5);
-    transition-delay: 1s;
-  }
+/* พื้นฐาน */
+.flower-wrapper {
+  position: relative;
+  width: 250px;
+  height: 300px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+/* ช่อดอกไม้ */
+.flower {
+  position: relative;
+  top: 120px;
+  width: 80px;
+  height: 120px;
+  margin: 0 auto;
+  transition: transform 1.2s ease-in-out;
+  z-index: 2;
+}
+
+.petal {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: var(--flower-petal);
+  border-radius: 50%;
+  top: 0;
+  left: 10px;
+  transform-origin: bottom center;
+  transition: transform 1.2s ease-in-out;
+}
+
+.petal1 { transform: rotate(0deg); }
+.petal2 { transform: rotate(90deg); }
+.petal3 { transform: rotate(180deg); }
+.petal4 { transform: rotate(270deg); }
+
+.stem {
+  position: absolute;
+  width: 10px;
+  height: 90px;
+  background: var(--stem);
+  top: 55px;
+  left: 35px;
+  border-radius: 5px;
+}
+
+.leaf {
+  position: absolute;
+  width: 30px;
+  height: 15px;
+  background: var(--leaf);
+  border-radius: 30px 30px 0 30px;
+}
+
+.leaf1 { top: 90px; left: 20px; transform: rotate(-35deg); }
+.leaf2 { top: 110px; left: 40px; transform: rotate(25deg); }
+
+/* การ์ดข้อความ */
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 220px;
+  min-height: 130px;
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transform: translate(-50%, 40%) scale(0.9);
+  opacity: 0;
+  text-align: center;
+  color: var(--text-color);
+  transition: all 1.2s ease-in-out;
+  z-index: 1;
+}
+
+.card p {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.signature {
+  text-align: right;
+  font-size: 11px;
+  margin-top: 10px;
+}
+
+/* เมื่อคลิกให้ขยาย */
+.flower-wrapper.open .flower {
+  transform: scale(1.3) translateY(-40px);
+}
+
+.flower-wrapper.open .petal1 { transform: rotate(-15deg) scale(1.2); }
+.flower-wrapper.open .petal2 { transform: rotate(75deg) scale(1.2); }
+.flower-wrapper.open .petal3 { transform: rotate(165deg) scale(1.2); }
+.flower-wrapper.open .petal4 { transform: rotate(255deg) scale(1.2); }
+
+.flower-wrapper.open .card {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  z-index: 0;
+}
+
 
 
 

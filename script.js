@@ -283,25 +283,21 @@ function openFilmRoll() {
   };
 }
 
-function openEnvelope() {
- const envelope = document.querySelector('.envelope-wrapper');
-const heartsInside = document.querySelectorAll('.heart-inside');
+function openFlower() {
+  const menuPage = document.getElementById("menu-page");
+  const flowerPage = document.getElementById("flower-page");
+  const flowerWrapper = document.getElementById("flower-wrapper");
 
-envelope.addEventListener('click', () => {
-  if (!envelope.classList.contains('flap')) {
-    envelope.classList.add('flap');
-  } else {
-    envelope.classList.remove('flap');
+  menuPage.classList.add("hidden");
+  flowerPage.classList.remove("hidden");
 
-    // รีเซ็ต animation
-    heartsInside.forEach(heart => {
-      heart.style.animation = 'none';
-      heart.offsetHeight; // trigger reflow
-      heart.style.animation = '';
-    });
-  }
-});
+  // เปิดช่อดอกไม้
+  flowerWrapper.classList.remove("open");
+  flowerWrapper.onclick = () => {
+    flowerWrapper.classList.toggle("open");
+  };
 }
+
 
 
 
