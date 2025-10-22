@@ -287,15 +287,18 @@ function openFlower() {
   const flowerPage = document.getElementById("flower-page");
   const bouquetScene = document.getElementById("bouquet-scene");
 
+  // ซ่อนเมนู เปิดหน้าดอกไม้
   menuPage.classList.add("hidden");
   flowerPage.classList.remove("hidden");
 
+  // รีเซ็ตช่อก่อนทุกครั้ง
   bouquetScene.classList.remove("open");
+
+  // เมื่อคลิกช่อดอกไม้ ให้เปิด/ปิดการ์ด
   bouquetScene.onclick = () => {
     bouquetScene.classList.toggle("open");
   };
 }
-
 
 
 

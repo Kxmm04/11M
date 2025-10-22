@@ -411,15 +411,17 @@ body.no-scroll {
   --shadow: rgba(0, 0, 0, 0.2);
 }
 
-/* ฉากรวม */
+/* 💐 ฉากรวม */
 .bouquet-scene {
   position: relative;
   width: 280px;
   margin: 0 auto;
   cursor: pointer;
+  perspective: 800px;
+  transform-style: preserve-3d;
 }
 
-/* การ์ดข้อความ */
+/* 💌 การ์ดข้อความ */
 .love-card {
   position: absolute;
   top: 55%;
@@ -440,22 +442,24 @@ body.no-scroll {
   color: #e94a7a;
   line-height: 1.6;
 }
+
 .signature {
   text-align: right;
   font-size: 11px;
   margin-top: 8px;
 }
 
-/* ดอกไม้ */
+/* 🌷 ช่อดอกไม้ */
 .bouquet {
   position: relative;
   width: 200px;
   height: 250px;
   margin: 0 auto;
   z-index: 2;
+  transition: transform 1s ease;
 }
 
-/* กลีบดอก */
+/* 🌸 กลีบดอก */
 .petal {
   position: absolute;
   width: 60px;
@@ -471,7 +475,7 @@ body.no-scroll {
   100% { transform: rotate(2deg) translateY(2px); }
 }
 
-/* ตำแหน่งกลีบ */
+/* 🌼 ตำแหน่งกลีบดอก */
 .p1 { top: 0; left: 80px; }
 .p2 { top: 15px; left: 40px; }
 .p3 { top: 15px; left: 120px; }
@@ -481,7 +485,32 @@ body.no-scroll {
 .p7 { top: 60px; left: 100px; }
 .p8 { top: 80px; left: 80px; }
 
-/* กระดาษห่อ */
+/* 🍃 ใบไม้ (เพิ่มความสมจริง) */
+.bouquet::before,
+.bouquet::after {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 40px;
+  background: var(--leaf);
+  border-radius: 50%;
+  filter: brightness(0.9);
+  z-index: 0;
+}
+
+.bouquet::before {
+  top: 100px;
+  left: 15px;
+  transform: rotate(-30deg);
+}
+
+.bouquet::after {
+  top: 100px;
+  right: 15px;
+  transform: rotate(30deg);
+}
+
+/* 📄 กระดาษห่อ */
 .wrap {
   position: absolute;
   top: 90px;
@@ -492,9 +521,10 @@ body.no-scroll {
   background: var(--wrap);
   border-radius: 0 0 80px 80px;
   box-shadow: 0 3px 8px var(--shadow);
+  z-index: 1;
 }
 
-/* โบว์ */
+/* 🎀 โบว์ */
 .ribbon {
   position: absolute;
   bottom: 25px;
@@ -505,9 +535,10 @@ body.no-scroll {
   background: var(--ribbon);
   border-radius: 10px;
   box-shadow: 0 2px 5px var(--shadow);
+  z-index: 2;
 }
 
-/* แอนิเมชันเปิดการ์ด */
+/* ✨ เอฟเฟกต์เปิดการ์ด */
 .bouquet-scene.open .love-card {
   opacity: 1;
   transform: translate(-50%, -100%) scale(1) rotateX(0deg);
@@ -516,7 +547,23 @@ body.no-scroll {
 
 .bouquet-scene.open .bouquet {
   transform: scale(1.05) translateY(-10px);
-  transition: transform 1s ease;
+}
+
+/* 🔘 ปุ่มกลับ */
+.back-btn {
+  background: #5cc2ff;
+  color: white;
+  font-size: 15px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 30px;
+  margin-top: 25px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.back-btn:hover {
+  background: #38a3e2;
 }
 
 
