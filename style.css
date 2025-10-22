@@ -403,96 +403,118 @@ body.no-scroll {
 }
 
 :root {
-  --pink: #ff9eb5;
-  --deep-pink: #ff6f91;
-  --green: #57c478;
-  --wrap: #fff4f7;
-  --ribbon: #ff85a1;
-  --text: #e94a7a;
+  --pink: #ffb6c9;
+  --rose: #ff8fab;
+  --leaf: #89c997;
+  --wrap: #fff6f7;
+  --ribbon: #ff9cb3;
+  --shadow: rgba(0, 0, 0, 0.2);
 }
 
 /* ฉากรวม */
-.bouquet-wrapper {
+.bouquet-scene {
   position: relative;
-  width: 250px;
+  width: 280px;
   margin: 0 auto;
   cursor: pointer;
 }
 
 /* การ์ดข้อความ */
-.card {
+.love-card {
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
-  width: 220px;
-  background: #fff9f9;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  transform: translate(-50%, 20%) scale(0.9) rotateX(20deg);
+  width: 240px;
+  background: #fff9fa;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 4px 10px var(--shadow);
+  transform: translate(-50%, 40%) scale(0.9) rotateX(20deg);
   opacity: 0;
   transition: all 1.2s ease-in-out;
   z-index: 1;
-  color: var(--text);
-  text-align: center;
 }
 
-.card p { font-size: 13px; line-height: 1.5; }
-.signature { text-align: right; font-size: 11px; }
+.love-card p {
+  font-size: 13px;
+  color: #e94a7a;
+  line-height: 1.6;
+}
+.signature {
+  text-align: right;
+  font-size: 11px;
+  margin-top: 8px;
+}
 
-/* ดอกไม้แต่ละดอก */
-.flower {
+/* ดอกไม้ */
+.bouquet {
+  position: relative;
+  width: 200px;
+  height: 250px;
+  margin: 0 auto;
+  z-index: 2;
+}
+
+/* กลีบดอก */
+.petal {
   position: absolute;
   width: 60px;
   height: 60px;
   background: radial-gradient(circle at 30% 30%, #fff, var(--pink));
   border-radius: 50%;
-  box-shadow: inset -5px -5px 0 var(--deep-pink);
-  z-index: 3;
+  box-shadow: inset -5px -5px 0 var(--rose);
+  animation: sway 4s ease-in-out infinite alternate;
 }
 
-.f1 { top: 0; left: 80px; }
-.f2 { top: 20px; left: 30px; }
-.f3 { top: 20px; left: 130px; }
-.f4 { top: 50px; left: 60px; }
-.f5 { top: 50px; left: 100px; }
+@keyframes sway {
+  0% { transform: rotate(-2deg) translateY(0); }
+  100% { transform: rotate(2deg) translateY(2px); }
+}
 
-/* ห่อช่อ */
+/* ตำแหน่งกลีบ */
+.p1 { top: 0; left: 80px; }
+.p2 { top: 15px; left: 40px; }
+.p3 { top: 15px; left: 120px; }
+.p4 { top: 40px; left: 0px; }
+.p5 { top: 40px; left: 160px; }
+.p6 { top: 60px; left: 60px; }
+.p7 { top: 60px; left: 100px; }
+.p8 { top: 80px; left: 80px; }
+
+/* กระดาษห่อ */
 .wrap {
   position: absolute;
-  top: 80px;
+  top: 90px;
   left: 50%;
-  transform: translateX(-50%) rotate(15deg);
-  width: 120px;
-  height: 150px;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 180px;
   background: var(--wrap);
-  border-radius: 0 0 60px 60px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-  z-index: 2;
+  border-radius: 0 0 80px 80px;
+  box-shadow: 0 3px 8px var(--shadow);
 }
 
 /* โบว์ */
 .ribbon {
   position: absolute;
-  bottom: 20px;
+  bottom: 25px;
   left: 50%;
-  transform: translateX(-50%) rotate(10deg);
+  transform: translateX(-50%) rotate(5deg);
   width: 60px;
-  height: 12px;
+  height: 14px;
   background: var(--ribbon);
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  z-index: 4;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px var(--shadow);
 }
 
-/* เมื่อคลิกเปิด */
-.bouquet-wrapper.open .card {
+/* แอนิเมชันเปิดการ์ด */
+.bouquet-scene.open .love-card {
   opacity: 1;
   transform: translate(-50%, -100%) scale(1) rotateX(0deg);
   z-index: 5;
 }
 
-.bouquet-wrapper.open .bouquet {
+.bouquet-scene.open .bouquet {
   transform: scale(1.05) translateY(-10px);
   transition: transform 1s ease;
 }

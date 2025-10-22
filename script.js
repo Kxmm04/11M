@@ -285,16 +285,17 @@ function openFilmRoll() {
 function openFlower() {
   const menuPage = document.getElementById("menu-page");
   const flowerPage = document.getElementById("flower-page");
-  const bouquetWrapper = document.getElementById("bouquet-wrapper");
+  const bouquetScene = document.getElementById("bouquet-scene");
 
   menuPage.classList.add("hidden");
   flowerPage.classList.remove("hidden");
 
-  bouquetWrapper.classList.remove("open");
-  bouquetWrapper.onclick = () => {
-    bouquetWrapper.classList.toggle("open");
+  bouquetScene.classList.remove("open");
+  bouquetScene.onclick = () => {
+    bouquetScene.classList.toggle("open");
   };
 }
+
 
 
 
