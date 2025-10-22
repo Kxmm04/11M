@@ -282,7 +282,6 @@ function openFilmRoll() {
     filmStrip.scrollLeft = touchScrollLeft - walk;
   };
 }
-
 function openFlower() {
   const menuPage = document.getElementById("menu-page");
   const flowerPage = document.getElementById("flower-page");

@@ -403,29 +403,20 @@ body.no-scroll {
 }
 
 :root {
-  --card-bg: #fff9f9;
-  --text-color: #ff4f8a;
-  --shadow-color: rgba(0,0,0,0.2);
+  --pink: #ff9eb5;
+  --deep-pink: #ff6f91;
+  --green: #57c478;
+  --wrap: #fff4f7;
+  --ribbon: #ff85a1;
+  --text: #e94a7a;
 }
 
-/* พื้นฐาน */
+/* ฉากรวม */
 .bouquet-wrapper {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  width: 320px;
+  width: 250px;
   margin: 0 auto;
-}
-
-/* ภาพช่อดอกไม้ */
-.bouquet {
-  width: 300px;
-  height: auto;
-  transition: transform 1s ease-in-out;
-  z-index: 2;
-  filter: drop-shadow(0 4px 6px var(--shadow-color));
+  cursor: pointer;
 }
 
 /* การ์ดข้อความ */
@@ -433,43 +424,78 @@ body.no-scroll {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 240px;
-  min-height: 140px;
-  background: var(--card-bg);
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 4px 10px var(--shadow-color);
-  color: var(--text-color);
-  text-align: center;
-  transform: translate(-50%, 30%) scale(0.9);
+  width: 220px;
+  background: #fff9f9;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transform: translate(-50%, 20%) scale(0.9) rotateX(20deg);
   opacity: 0;
-  transition: transform 1s ease, opacity 0.8s ease;
+  transition: all 1.2s ease-in-out;
   z-index: 1;
+  color: var(--text);
+  text-align: center;
 }
 
-.card p {
-  font-size: 13px;
-  line-height: 1.6;
+.card p { font-size: 13px; line-height: 1.5; }
+.signature { text-align: right; font-size: 11px; }
+
+/* ดอกไม้แต่ละดอก */
+.flower {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle at 30% 30%, #fff, var(--pink));
+  border-radius: 50%;
+  box-shadow: inset -5px -5px 0 var(--deep-pink);
+  z-index: 3;
 }
 
-.signature {
-  text-align: right;
-  font-size: 11px;
-  margin-top: 10px;
+.f1 { top: 0; left: 80px; }
+.f2 { top: 20px; left: 30px; }
+.f3 { top: 20px; left: 130px; }
+.f4 { top: 50px; left: 60px; }
+.f5 { top: 50px; left: 100px; }
+
+/* ห่อช่อ */
+.wrap {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) rotate(15deg);
+  width: 120px;
+  height: 150px;
+  background: var(--wrap);
+  border-radius: 0 0 60px 60px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  z-index: 2;
 }
 
-/* เมื่อเปิดการ์ด */
-.bouquet-wrapper.open .bouquet {
-  transform: scale(1.1) translateY(-10px);
+/* โบว์ */
+.ribbon {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) rotate(10deg);
+  width: 60px;
+  height: 12px;
+  background: var(--ribbon);
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 4;
 }
 
+/* เมื่อคลิกเปิด */
 .bouquet-wrapper.open .card {
   opacity: 1;
-  transform: translate(-50%, -90%) scale(1);
-  z-index: 3;
-  transition-delay: 0.3s;
+  transform: translate(-50%, -100%) scale(1) rotateX(0deg);
+  z-index: 5;
 }
 
+.bouquet-wrapper.open .bouquet {
+  transform: scale(1.05) translateY(-10px);
+  transition: transform 1s ease;
+}
 
 
 
