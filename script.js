@@ -63,16 +63,17 @@ function goToMenu() {
   document.getElementById("menu-page").classList.remove("hidden");
 }
 
-// ✅ กลับหน้าเมนู
 function backToMenu() {
   const filmStrip = document.getElementById("film-strip");
   const filmWrapper = document.getElementById("film-wrapper");
   const filmPage = document.getElementById("film-roll-page");
   const galleryPage = document.getElementById("gallery-page");
+  const envelopePage = document.getElementById("envelope-page"); // ✅ เพิ่มบรรทัดนี้
   const menuPage = document.getElementById("menu-page");
 
   const fadeOutDuration = 400;
 
+  // 🎞️ กลับจากหน้าฟิล์ม
   if (!filmPage.classList.contains("hidden")) {
     if (!filmOpened) {
       filmPage.classList.add("fade-out");
@@ -103,7 +104,10 @@ function backToMenu() {
         }, fadeOutDuration);
       }, 1000);
     }
-  } else if (!galleryPage.classList.contains("hidden")) {
+  }
+
+  // 🖼️ กลับจากแกลเลอรี่
+  else if (!galleryPage.classList.contains("hidden")) {
     galleryPage.classList.add("fade-out");
     setTimeout(() => {
       galleryPage.classList.add("hidden");
@@ -114,8 +118,21 @@ function backToMenu() {
     }, fadeOutDuration);
   }
 
+  // 💌 กลับจากหน้าซองจดหมาย (เพิ่มส่วนนี้)
+  else if (!envelopePage.classList.contains("hidden")) {
+    envelopePage.classList.add("fade-out");
+    setTimeout(() => {
+      envelopePage.classList.add("hidden");
+      envelopePage.classList.remove("fade-out");
+      menuPage.classList.remove("hidden");
+      menuPage.classList.add("fade-in");
+      setTimeout(() => menuPage.classList.remove("fade-in"), 600);
+    }, fadeOutDuration);
+  }
+
   document.body.classList.remove("no-scroll");
 }
+
 
 // ✅ เปิดแกลเลอรี
 function openGallery() {
@@ -265,6 +282,31 @@ function openFilmRoll() {
     filmStrip.scrollLeft = touchScrollLeft - walk;
   };
 }
+
+function openEnvelope() {
+ const envelope = document.querySelector('.envelope-wrapper');
+const heartsInside = document.querySelectorAll('.heart-inside');
+
+envelope.addEventListener('click', () => {
+  if (!envelope.classList.contains('flap')) {
+    envelope.classList.add('flap');
+  } else {
+    envelope.classList.remove('flap');
+
+    // รีเซ็ต animation
+    heartsInside.forEach(heart => {
+      heart.style.animation = 'none';
+      heart.offsetHeight; // trigger reflow
+      heart.style.animation = '';
+    });
+  }
+});
+}
+
+
+
+
+
 
 // ✅ รองรับ Enter
 document.getElementById("password").addEventListener("keypress", (event) => {

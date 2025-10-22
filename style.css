@@ -402,6 +402,84 @@ body.no-scroll {
   to { transform: translateX(0%); }
 }
 
+:root {
+  --envelope-tab: #ff93a9;
+  --envelope-cover: #ff7892;
+  --primary: #fff;
+  --shadow-color: rgba(0,0,0,0.25);
+  --txt-color: #e94a7a;
+}
+
+.envelope-wrapper {
+    background: var(--bg-envelope-color);
+    box-shadow: 0 0 30px var(--shadow-color);
+    cursor: pointer;
+  }
+  
+  .envelope-wrapper > .envelope {
+    position: relative;
+    width: 300px;
+    height: 230px;
+  }
+  
+  .envelope-wrapper > .envelope::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    border-top: 130px solid var(--envelope-tab);
+    border-right: 150px solid transparent;
+    border-left: 150px solid transparent;
+    transform-origin: top;
+    transition: all 0.5s ease-in-out 0.7s;
+  }
+  
+  .envelope-wrapper > .envelope::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    width: 0px;
+    height: 0px;
+    border-top: 130px solid transparent;
+    border-right: 150px solid var(--envelope-cover);
+    border-bottom: 106px solid var(--envelope-cover);
+    border-left: 150px solid var(--envelope-cover);
+  }
+  
+  .envelope > .letter {
+    position: absolute;
+    right: 20%;
+    bottom: 0;
+    width: 54%;
+    height: 80%;
+    background: var(--primary);
+    text-align: center;
+    transition: all 1s ease-in-out;
+    box-shadow: 0 0 5px var(--shadow-color);
+    padding: 20px 10px;
+    font-family: 'Itim', cursive;
+  }
+  
+  .envelope > .letter > .text {
+    color: var(--txt-color);
+    text-align: left;
+    font-size: 10px;
+    font-family: 'Itim', cursive;
+  }
+  
+  /* ตอนเปิดซอง */
+  .flap > .envelope::before {
+    transform: rotateX(180deg);
+    z-index: 0;
+  }
+  
+  .flap > .envelope > .letter {
+    bottom: 100px;
+    transform: scale(1.5);
+    transition-delay: 1s;
+  }
+
+
 
 /* 🪄 Responsive */
 @media (max-width: 700px) {
