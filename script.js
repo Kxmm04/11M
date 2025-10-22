@@ -68,12 +68,11 @@ function backToMenu() {
   const filmWrapper = document.getElementById("film-wrapper");
   const filmPage = document.getElementById("film-roll-page");
   const galleryPage = document.getElementById("gallery-page");
-  const envelopePage = document.getElementById("envelope-page"); // ✅ เพิ่มบรรทัดนี้
+  const flowerPage = document.getElementById("flower-page");
   const menuPage = document.getElementById("menu-page");
 
   const fadeOutDuration = 400;
 
-  // 🎞️ กลับจากหน้าฟิล์ม
   if (!filmPage.classList.contains("hidden")) {
     if (!filmOpened) {
       filmPage.classList.add("fade-out");
@@ -104,9 +103,7 @@ function backToMenu() {
         }, fadeOutDuration);
       }, 1000);
     }
-  }
-
-  // 🖼️ กลับจากแกลเลอรี่
+  } 
   else if (!galleryPage.classList.contains("hidden")) {
     galleryPage.classList.add("fade-out");
     setTimeout(() => {
@@ -116,14 +113,12 @@ function backToMenu() {
       menuPage.classList.add("fade-in");
       setTimeout(() => menuPage.classList.remove("fade-in"), 600);
     }, fadeOutDuration);
-  }
-
-  // 💌 กลับจากหน้าซองจดหมาย (เพิ่มส่วนนี้)
-  else if (!envelopePage.classList.contains("hidden")) {
-    envelopePage.classList.add("fade-out");
+  } 
+  else if (!flowerPage.classList.contains("hidden")) {
+    flowerPage.classList.add("fade-out");
     setTimeout(() => {
-      envelopePage.classList.add("hidden");
-      envelopePage.classList.remove("fade-out");
+      flowerPage.classList.add("hidden");
+      flowerPage.classList.remove("fade-out");
       menuPage.classList.remove("hidden");
       menuPage.classList.add("fade-in");
       setTimeout(() => menuPage.classList.remove("fade-in"), 600);
@@ -290,22 +285,17 @@ function openFlower() {
   menuPage.classList.add("hidden");
   flowerPage.classList.remove("hidden");
 
-  // รีเซ็ตช่อก่อนทุกครั้ง
-  bouquetScene.classList.remove("open");
+  // รีเซ็ตก่อนทุกครั้ง
+  bouquetScene.classList.remove("open", "clicked");
 
-  // เมื่อคลิกที่ช่อดอกไม้ ให้เปิด/ปิดการ์ด
+  // คลิกที่ภาพ → ซ่อนข้อความ + แสดงการ์ด
   bouquetScene.onclick = () => {
-    bouquetScene.classList.toggle("open");
+    bouquetScene.classList.add("clicked"); // ซ่อนข้อความทันที
+    setTimeout(() => {
+      bouquetScene.classList.toggle("open"); // เปิดการ์ด
+    }, 100); // เวลานิดหน่อยเพื่อให้ transition ทำงาน
   };
 }
-
-
-
-
-
-
-
-
 
 // ✅ รองรับ Enter
 document.getElementById("password").addEventListener("keypress", (event) => {
