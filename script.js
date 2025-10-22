@@ -286,17 +286,17 @@ function openFilmRoll() {
 function openFlower() {
   const menuPage = document.getElementById("menu-page");
   const flowerPage = document.getElementById("flower-page");
-  const flowerWrapper = document.getElementById("flower-wrapper");
+  const bouquetWrapper = document.getElementById("bouquet-wrapper");
 
   menuPage.classList.add("hidden");
   flowerPage.classList.remove("hidden");
 
-  // เปิดช่อดอกไม้
-  flowerWrapper.classList.remove("open");
-  flowerWrapper.onclick = () => {
-    flowerWrapper.classList.toggle("open");
+  bouquetWrapper.classList.remove("open");
+  bouquetWrapper.onclick = () => {
+    bouquetWrapper.classList.toggle("open");
   };
 }
+
 
 
 
