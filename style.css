@@ -278,129 +278,145 @@
         /* ป้อง gesture scroll ในมือถือ */
     }
 
-    /* 🎞️ ฟิล์ม */
-    .film-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 400px;
-    height: 220px;
-    margin: 0 auto;
-    overflow: hidden;
-    perspective: 1000px;
-    }
+/* 🎞️ ฟิล์ม */
+.film-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  height: 220px;
+  margin: 0 auto;
+  overflow: hidden;
+  perspective: 1000px;
+}
 
-    .film-wrapper {
-    display: flex;
-    align-items: center;
-    transition: transform 0.8s ease;
-    }
+.film-wrapper {
+  display: flex;
+  align-items: center;
+  transition: transform 0.8s ease;
+}
 
-    .film-can {
-    flex-shrink: 0;
-    width: 70px;
-    height: 110px;
-    background: linear-gradient(90deg, #222, #111 40%, #444 100%);
-    border-radius: 10px;
-    box-shadow: inset -5px 0 10px rgba(0, 0, 0, 0.6),
-                3px 3px 10px rgba(0, 0, 0, 0.4);
-    z-index: 5;
-    }
+.film-can {
+  flex-shrink: 0;
+  width: 70px;
+  height: 110px;
+  background: linear-gradient(90deg, #222, #111 40%, #444 100%);
+  border-radius: 10px;
+  box-shadow: inset -5px 0 10px rgba(0, 0, 0, 0.6),
+              3px 3px 10px rgba(0, 0, 0, 0.4);
+  z-index: 5;
+}
 
-    /* 🎞️ ฟิล์มแผ่น */
-    .film-strip {
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: 120px;
-    background: linear-gradient(180deg, #222, #111 40%, #333);
-    border-radius: 6px;
-    border: 6px solid #111;
-    margin-left: -20px;
-    overflow-x: hidden;
-    transform-origin: left center;
-    transform: translateX(-70%);
-    box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.1),
-                0 4px 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.8s ease;
-    cursor: grab;
-    position: relative;
-    padding-left: 60px; /* เพิ่มช่องให้ลากได้ง่าย */
-    }
+/* 🎞️ ฟิล์มแผ่น */
+.film-strip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 120px;
+  background: linear-gradient(180deg, #222, #111 40%, #333);
+  border-radius: 6px;
+  border: 6px solid #111;
+  margin-left: -20px;
+  overflow-x: hidden;
+  transform-origin: left center;
+  transform: translateX(-70%);
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.1),
+              0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.8s ease;
+  cursor: grab;
+  position: relative;
+  padding-left: 60px; /* เพิ่มช่องให้ลากได้ง่าย */
+}
 
-    /* เปิดฟิล์ม */
-    .film-strip.active {
-    transform: translateX(0);
-    overflow-x: scroll;
-    }
-    .film-strip.active .frame img,
-    .film-strip.active .frame video {
-    opacity: 1;
-    transform: scale(1);
-    }
+/* เปิดฟิล์ม */
+.film-strip.active {
+  transform: translateX(0);
+  overflow-x: scroll;
+}
+.film-strip.active .frame img,
+.film-strip.active .frame video {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ซ่อน scrollbar */
+.film-strip::-webkit-scrollbar {
+  display: none;
+}
+
+/* 🎬 เฟรมในฟิล์ม */
+.frame {
+  background: #000;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  width: clamp(90px, 25vw, 110px); /* ขนาดเฟรมยืดหยุ่น */
+  height: clamp(90px, 25vw, 110px);
+  margin: 0 6px;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+/* 🎬 วิดีโอในเฟรม */
+.film-strip .frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* พอดีช่องไม่บี้ */
+  border-radius: 6px;
+  background: #000;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+
+/* ✅ โชว์ตอนเปิด */
+.film-strip.active .frame video {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
 
 
-    /* ซ่อน scrollbar */
-    .film-strip::-webkit-scrollbar {
-    display: none;
-    }
+/* 🎬 วิดีโอเฉพาะ */
+.film-strip .frame video {
+  background: #000;
+}
 
-    /* เฟรมภาพ */
-    .frame {
-    background: #000;
-    border-radius: 5px;
-    overflow: hidden;
-    position: relative;
-    width: 100px;
-    height: 100px;
-    margin: 0 6px;
-    flex-shrink: 0;
-    box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2);
-    }
+/* 💡 ซ่อนปุ่ม control ตอนยังไม่เปิดฟิล์ม */
+.film-strip .frame video::-webkit-media-controls {
+  display: none !important;
+}
 
-    /* 🔒 ซ่อนรูปก่อนเปิด */
-    .film-strip .frame img,
-    .film-strip .frame video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 4px;
-    opacity: 0;
-    transform: scale(0.9);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-    pointer-events: none;
-    }
+/* ✨ เอฟเฟกต์ตอนเล่นวิดีโอ */
+.film-strip .frame video:playing {
+  box-shadow: 0 0 10px 2px rgba(255, 183, 197, 0.6);
+  transition: box-shadow 0.4s ease;
+}
 
-    /* ✅ โชว์ตอนเปิด */
-    .film-strip.active .frame img,
-    .film-strip.active .frame video {
-    opacity: 1;
-    transform: scale(1);
-    pointer-events: auto;
-    }
+/* 🎞️ แสงสะท้อน */
+.film-strip::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
 
-    /* ✨ แสงสะท้อน */
-    .film-strip::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -50%;
-    width: 200%;
-    height: 100%;
-    background: linear-gradient(120deg, rgba(255,255,255,0.1) 0%, transparent 60%);
-    pointer-events: none;
-    }
+.film-strip.shining::after {
+  animation: filmShine 3s linear infinite;
+}
 
-    .film-strip.shining::after {
-    animation: filmShine 3s linear infinite;
-    }
+@keyframes filmShine {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0%); }
+}
 
-    @keyframes filmShine {
-    from { transform: translateX(-50%); }
-    to { transform: translateX(0%); }
-    }
 
    :root {
   --shadow: rgba(0, 0, 0, 0.25);
@@ -508,6 +524,26 @@
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.8);
   pointer-events: none;
+}
+
+.bouquet-scene {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+
+/* ให้คลิกเฉพาะรูปเท่านั้น */
+.flower-image {
+  pointer-events: auto;
+}
+
+/* ป้องกัน overlay ของ scene */
+.bouquet-scene * {
+  pointer-events: none;
+}
+.flower-image,
+.click-hint {
+  pointer-events: auto;
 }
 
     .fade-in {

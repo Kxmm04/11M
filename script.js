@@ -1,8 +1,27 @@
 let filmOpened = false;
+let filmAutoScroll = null;
 
 // ✅ ตรวจรหัสผ่าน
 function checkPassword() {
   const passwordInput = document.getElementById("password").value.trim();
+  const music = document.getElementById("bg-music");
+
+  // ✅ พยายามเริ่มเพลง “ทันที” ตอนกดปุ่ม
+  const tryPlayMusic = () => {
+    music.volume = 0.25;
+    const playPromise = music.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => console.log("เพลงเริ่มเล่นแล้ว 🎵"))
+        .catch(() => {
+          console.warn("เบราว์เซอร์ยังไม่อนุญาตเสียง จะเล่นหลังยืนยัน");
+        });
+    }
+  };
+
+  tryPlayMusic(); // เริ่มเลยตอนกดปุ่ม
+
+  // ✅ ตรวจรหัสผ่าน
   if (passwordInput === "") {
     showModal("ใส่วันครบรอบก่อนอ้วงง💙", "");
   } else if (passwordInput === "23") {
@@ -11,6 +30,7 @@ function checkPassword() {
     showModal("วันไม่ถูกอ่าา 💔", "ใส่ใหม่นะอ้วงงงง");
   }
 }
+
 
 // ✅ Modal ปกติ
 function showModal(title, message = "") {
@@ -49,6 +69,7 @@ function showSuccessModal(title) {
     }, 400);
   }, 2000);
 }
+
 
 // ✅ ปิด Modal
 document.getElementById("closeModal").addEventListener("click", () => {
@@ -204,78 +225,84 @@ function setupGallery() {
   }
 }
 
-// 💙 เมนูที่ 2: ฟิล์มกลิ้ง (แก้ใหม่สุด)
+
+
+// 💙 ฟิล์มเวอร์ชันใหม่: เล่นอัตโนมัติ + เลื่อนวน
+// 💙 ฟิล์มเวอร์ชันใหม่: ปรับความยาวอัตโนมัติ + ขนาดเฟรมพอดี
 function openFilmRoll() {
   const menuPage = document.getElementById("menu-page");
   const filmPage = document.getElementById("film-roll-page");
   const filmWrapper = document.getElementById("film-wrapper");
   const filmStrip = document.getElementById("film-strip");
+  const videos = filmStrip.querySelectorAll("video");
+  const frames = filmStrip.querySelectorAll(".frame");
+  
 
+  // ซ่อนเมนู / แสดงฟิล์ม
   menuPage.classList.add("hidden");
   filmPage.classList.remove("hidden");
   filmPage.classList.add("fade-in");
   setTimeout(() => filmPage.classList.remove("fade-in"), 600);
 
-  // ✅ รีเซ็ตทุกครั้ง
+  // รีเซ็ตทุกครั้ง
   filmStrip.classList.remove("active");
   filmWrapper.style.transform = "translateX(0)";
   filmStrip.style.transform = "translateX(-80%)";
   filmOpened = false;
 
-  let isDragging = false;
-  let startX = 0;
-  let scrollLeft = 0;
+  // เปิดฟิล์มพร้อมเล่นอัตโนมัติ
+  setTimeout(() => {
+    filmStrip.classList.add("active");
+    filmWrapper.style.transform = "translateX(-80px)";
+    filmStrip.style.transform = "translateX(0)";
+    filmOpened = true;
 
-  // 🎞️ เริ่มลากหรือคลิกฟิล์ม
-  filmStrip.onmousedown = (e) => {
-    // ให้ฟิล์มขยับออกนิดก่อนเสมอ
-    if (!filmOpened) {
-      filmStrip.classList.add("active");
-      filmWrapper.style.transform = "translateX(-80px)";
-      filmStrip.style.transform = "translateX(0)";
-      filmOpened = true;
-    }
-    isDragging = true;
-    startX = e.pageX - filmStrip.offsetLeft;
-    scrollLeft = filmStrip.scrollLeft;
-    filmStrip.style.cursor = "grabbing";
-  };
+    // 🎬 เล่นวิดีโอทั้งหมดแบบวนและปิดเสียง
+    videos.forEach((v) => {
+      v.loop = true;
+      v.muted = true;
+      v.play().catch(() => {});
+    });
 
-  filmStrip.onmouseup = () => {
-    isDragging = false;
-    filmStrip.style.cursor = "grab";
-  };
+    // 💡 ปรับความยาวฟิล์มอัตโนมัติ (ให้ยาวพอดีกับจำนวนเฟรม)
+    const frameWidth = frames[0].offsetWidth + 12; // 100px + margin 6px ทั้งสองข้าง
+    const totalWidth = frames.length * frameWidth + 100; // บวกช่องซ้ายขวาเล็กน้อย
+    filmStrip.style.width = `${totalWidth}px`;
+  }, 800);
+}
 
-  filmStrip.onmouseleave = () => {
-    isDragging = false;
-  };
+// 🔙 หยุดเลื่อนและหยุดวิดีโอเมื่อกลับเมนู
+function backToMenu() {
+  const filmPage = document.getElementById("film-roll-page");
+  const galleryPage = document.getElementById("gallery-page");
+  const flowerPage = document.getElementById("flower-page");
+  const menuPage = document.getElementById("menu-page");
+  const filmStrip = document.getElementById("film-strip");
+  const videos = filmStrip.querySelectorAll("video");
+  const fadeOutDuration = 400;
 
-  filmStrip.onmousemove = (e) => {
-    if (!isDragging || !filmOpened) return;
-    const x = e.pageX - filmStrip.offsetLeft;
-    const walk = (x - startX) * 1.3;
-    filmStrip.scrollLeft = scrollLeft - walk;
-  };
+  // หยุดทุกอย่าง
+  filmOpened = false;
+  cancelAnimationFrame(filmAutoScroll);
+  videos.forEach((v) => v.pause());
 
-  // 📱 มือถือ
-  let touchStartX = 0;
-  let touchScrollLeft = 0;
-  filmStrip.ontouchstart = (e) => {
-    if (!filmOpened) {
-      filmStrip.classList.add("active");
-      filmWrapper.style.transform = "translateX(-80px)";
-      filmStrip.style.transform = "translateX(0)";
-      filmOpened = true;
-    }
-    touchStartX = e.touches[0].clientX;
-    touchScrollLeft = filmStrip.scrollLeft;
-  };
-  filmStrip.ontouchmove = (e) => {
-    if (!filmOpened) return;
-    const x = e.touches[0].clientX;
-    const walk = (x - touchStartX) * 1.3;
-    filmStrip.scrollLeft = touchScrollLeft - walk;
-  };
+  let activePage = null;
+  if (!filmPage.classList.contains("hidden")) activePage = filmPage;
+  else if (!galleryPage.classList.contains("hidden")) activePage = galleryPage;
+  else if (!flowerPage.classList.contains("hidden")) activePage = flowerPage;
+
+  if (activePage) {
+    activePage.classList.add("fade-out");
+    setTimeout(() => {
+      activePage.classList.add("hidden");
+      activePage.classList.remove("fade-out");
+      menuPage.classList.remove("hidden");
+      menuPage.classList.add("fade-in");
+      setTimeout(() => menuPage.classList.remove("fade-in"), 600);
+    }, fadeOutDuration);
+  }
+
+  document.body.classList.remove("no-scroll");
 }
 function openFlower() {
   const menuPage = document.getElementById("menu-page");
@@ -296,6 +323,7 @@ function openFlower() {
     }, 100); // เวลานิดหน่อยเพื่อให้ transition ทำงาน
   };
 }
+
 
 // ✅ รองรับ Enter
 document.getElementById("password").addEventListener("keypress", (event) => {
