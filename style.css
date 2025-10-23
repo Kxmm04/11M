@@ -578,6 +578,22 @@
     to { opacity: 0; transform: translateY(10px); }
     }
 
+#love-time-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background: rgba(173, 216, 230, 0.8);
+  backdrop-filter: blur(8px);
+  color: #003366;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 10px 0;
+  z-index: 9999;
+  border-bottom: 2px solid rgba(0, 100, 255, 0.2);
+}
+
 
 
     /* 🪄 Responsive */

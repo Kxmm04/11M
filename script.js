@@ -390,6 +390,51 @@
     }, 300);
   }
 
+// 💙 คำนวณเวลาที่คบกันแบบปฏิทินจริง (นับเดือนถูกต้อง)
+function updateLoveTime() {
+  const startDate = new Date("2024-11-23T00:00:00");
+  const now = new Date();
+
+  // 🧮 คำนวณส่วนต่างแบบปฏิทิน
+  let years = now.getFullYear() - startDate.getFullYear();
+  let months = now.getMonth() - startDate.getMonth();
+  let days = now.getDate() - startDate.getDate();
+
+  if (days < 0) {
+    months--;
+    const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+    days += prevMonth.getDate();
+  }
+
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  // คำนวณชั่วโมง นาที วินาที
+  const diffMs = now - startDate;
+  const totalSeconds = Math.floor(diffMs / 1000);
+  const totalMinutes = Math.floor(totalSeconds / 60);
+  const totalHours = Math.floor(totalMinutes / 60);
+
+  const hours = totalHours % 24;
+  const minutes = totalMinutes % 60;
+  const seconds = totalSeconds % 60;
+
+  // แสดงผลรวม (รวมปีด้วยเผื่ออนาคต ❤️)
+  const display =
+    (years > 0 ? `${years} ปี ` : "") +
+    `${months} เดือน ${days} วัน ` +
+    `${String(hours).padStart(2, "0")}:` +
+    `${String(minutes).padStart(2, "0")}:` +
+    `${String(seconds).padStart(2, "0")}`;
+
+  document.getElementById("love-time").textContent = display;
+}
+
+setInterval(updateLoveTime, 1000);
+updateLoveTime();
+
 
 
   // ✅ รองรับ Enter
