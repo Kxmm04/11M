@@ -1,128 +1,127 @@
-<!DOCTYPE html>
-<html lang="th">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ครบรอบ 11 M</title>
-        <link rel="icon" type="image/png" href="images/icon web.png">
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <!-- 💙 หน้าใส่รหัส -->
-        <div class="container" id="password-page">
-            <h1>💙 วันครบรอบวันไหนเอ่ยย 💙</h1>
-            <input type="password" id="password" placeholder="วันครบรอบ..."
-                maxlength="2" inputmode="numeric">
-            <button onclick="checkPassword()">ไปกันเยยย</button>
-        </div>
-
-        <!-- 💙 หน้าเมนู -->
-        <div class="container hidden" id="menu-page">
-            <div class="menu">
-                <button onclick="openGallery()">ภาพความทรงจำ</button>
-             
-                <button onclick="openFlower()">มีดอกไม้ให้อ้วงๆๆๆ</button>
+    <!DOCTYPE html>
+    <html lang="th">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>ครบรอบ 11 M</title>
+            <link rel="icon" type="image/png" href="images/icon web.png">
+            <link rel="stylesheet" href="style.css">
+        </head>
+        <body>
+            <!-- 💙 หน้าใส่รหัส -->
+            <div class="container" id="password-page">
+                <h1>💙 วันครบรอบวันไหนเอ่ยย 💙</h1>
+                <input type="password" id="password" placeholder="วันครบรอบ..."
+                    maxlength="2" inputmode="numeric">
+                <button onclick="checkPassword()">ไปกันเยยย</button>
             </div>
-        </div>
 
-        <!-- 💙 หน้าแกลเลอรี่ -->
-        <div class="container hidden" id="gallery-page">
-            <h2>💙 รวมภาพความทรงจำ 💙</h2>
-            <div class="gallery-container">
-                <div class="gallery" id="gallery">
-                    <div class="gallery-item"
-                        data-caption="วันที่เราไปดูหนัง ธี่หยด3 😱">
-                        <img src="images/pic1.jpg" alt="pic1">
+            <!-- 💙 หน้าเมนู -->
+            <div class="container hidden" id="menu-page">
+                <div class="menu">
+                    <button onclick="openGallery()">ภาพความทรงจำ</button>
+                
+                    <button onclick="openFlower()">มีดอกไม้ให้อ้วงๆๆๆ</button>
+                </div>
+            </div>
+
+            <!-- 💙 หน้าแกลเลอรี่ -->
+            <div class="container hidden" id="gallery-page">
+                <h2>💙 รวมภาพความทรงจำ 💙</h2>
+                <div class="gallery-container">
+                    <div class="gallery" id="gallery">
+                        <div class="gallery-item"
+                            data-caption="วันที่เราไปดูหนัง ธี่หยด3 😱">
+                            <img src="images/pic1.jpg" alt="pic1">
+                        </div>
+                        <div class="gallery-item"
+                            data-caption="วันที่เรากินบิงซูด้วยกัน">
+                            <img src="images/pic2.jpg" alt="pic2">
+                        </div>
+                        <div class="gallery-item"
+                            data-caption="ไปขอนแก่นนด้วยกันหนุกมากๆ">
+                            <img src="images/pic3.jpg" alt="pic3">
+                        </div>
+                        <div class="gallery-item"
+                            data-caption="รูปนี้น่ารักกันมากกก">
+                            <img src="images/pic4.jpg" alt="pic4">
+                        </div>
+                        <div class="gallery-item"
+                            data-caption="ใส่ชุดนักศึกษาคู่กันน">
+                            <img src="images/pic5.JPG" alt="pic5">
+                        </div>
                     </div>
-                    <div class="gallery-item"
-                        data-caption="วันที่เรากินบิงซูด้วยกัน">
-                        <img src="images/pic2.jpg" alt="pic2">
-                    </div>
-                    <div class="gallery-item"
-                        data-caption="ไปขอนแก่นนด้วยกันหนุกมากๆ">
-                        <img src="images/pic3.jpg" alt="pic3">
-                    </div>
-                    <div class="gallery-item"
-                        data-caption="รูปนี้น่ารักกันมากกก">
-                        <img src="images/pic4.jpg" alt="pic4">
-                    </div>
-                    <div class="gallery-item"
-                        data-caption="ใส่ชุดนักศึกษาคู่กันน">
-                        <img src="images/pic5.JPG" alt="pic5">
-                    </div>
+
+                    <!-- ลูกศรซ้ายขวา -->
+                    <button class="arrow" id="arrow-left">⟨</button>
+                    <button class="arrow" id="arrow-right">⟩</button>
+
+                    <p class="caption" id="caption">วันที่เราไปเที่ยวทะเล</p>
                 </div>
 
-                <!-- ลูกศรซ้ายขวา -->
-                <button class="arrow" id="arrow-left">⟨</button>
-                <button class="arrow" id="arrow-right">⟩</button>
-
-                <p class="caption" id="caption">วันที่เราไปเที่ยวทะเล</p>
+                <button class="back-btn"
+                    onclick="backToMenu()">ย้อนกลับบบ</button>
             </div>
+            
+    <!-- 💙 เมนูที่ 2 - ฟิล์มกลิ้งออกมา (เวอร์ชันวิดีโอ) -->
+    <div class="container hidden" id="film-roll-page">
+    <h2>🎞️ ฟิล์มวิดีโอความทรงจำ 💙</h2>
 
-            <button class="back-btn"
-                onclick="backToMenu()">ย้อนกลับบบ</button>
-        </div>
-        
- <!-- 💙 เมนูที่ 2 - ฟิล์มกลิ้งออกมา (เวอร์ชันวิดีโอ) -->
-<div class="container hidden" id="film-roll-page">
-  <h2>🎞️ ฟิล์มวิดีโอความทรงจำ 💙</h2>
-
-  <div class="film-container" id="film-wrapper">
-    <div class="film-can"></div>
-    <div class="film-strip" id="film-strip">
-    <div class="frame"><video src="video/v2.mp4" controls></video></div>
-      <div class="frame"><video src="video/v3.mp4" controls></video></div>
-      <div class="frame"><video src="video/v4.mp4" controls></video></div>
-      <div class="frame"><video src="video/v5.mp4" controls></video></div>
-      <div class="frame"><video src="video/v6.mp4" controls></video></div>
-</div>
-  </div>
-
-  <button class="back-btn" onclick="backToMenu()">ย้อนกลับบบ</button>
-</div>
-
-<!-- 💐 เมนูที่ 3 - ช่อดอกไม้แห่งความรัก -->
-<div class="container hidden" id="flower-page">
-  <h2>💐 ช่อดอกไม้แห่งความรัก 💐</h2>
-
-  <div class="bouquet-scene" id="bouquet-scene">
-    <!-- 💌 การ์ดข้อความ -->
-    <div class="love-card">
-      <p>
-        🌸 ถึงอ้วงของเค้า 🌸<br><br>
-        ดอกไม้ช่อนี้แทนความรู้สึกของเค้าเลยนะ 💖  
-        เค้ารักอ้วงมากๆ ขอบคุณที่อยู่ด้วยกันเสมอ 💕  
-        ขอให้อยู่เคียงข้างกันไปนานๆ เลยนะ รักที่สุดเลย 💌
-      </p>
-      <p class="signature">จาก คิมมี่</p>
+    <div class="film-container" id="film-wrapper">
+        <div class="film-can"></div>
+        <div class="film-strip" id="film-strip">
+        <div class="frame"><video src="video/v2.mp4" controls></video></div>
+        <div class="frame"><video src="video/v3.mp4" controls></video></div>
+        <div class="frame"><video src="video/v4.mp4" controls></video></div>
+        <div class="frame"><video src="video/v5.mp4" controls></video></div>
+        <div class="frame"><video src="video/v6.mp4" controls></video></div>
+    </div>
     </div>
 
-    <!-- 🌺 รูปช่อดอกไม้ -->
-    <img src="images/flower.jpg" alt="ช่อดอกไม้" class="flower-image">
+    <button class="back-btn" onclick="backToMenu()">ย้อนกลับบบ</button>
+    </div>
 
-    <!-- 🌸 ข้อความชวนกด -->
-    <div class="click-hint">🌸 กดรูปดูจิๆๆ 💕</div>
-  </div>
-    <div class="heart-bg" id="heart-bg"></div>
+    <!-- 💐 เมนูที่ 3 - ช่อดอกไม้แห่งความรัก -->
+    <div class="container hidden" id="flower-page">
+    <h2>💐 ช่อดอกไม้แห่งความรัก 💐</h2>
 
-
-  <button class="back-btn" onclick="backToMenu()">ย้อนกลับบบ</button>
-</div>
-
-
-
-
-        <!-- 🌟 Modal -->
-        <div id="modal" class="modal hidden">
-            <div class="modal-content">
-                <h2 id="modal-title"></h2>
-                <p id="modal-message"></p>
-                <button id="closeModal">ปิด</button>
-            </div>
+    <div class="bouquet-scene" id="bouquet-scene">
+        <!-- 💌 การ์ดข้อความ -->
+        <div class="love-card">
+        <p>
+            🌸 ถึงอ้วงของเค้า 🌸<br><br>
+            ดอกไม้ช่อนี้แทนความรู้สึกของเค้าเลยนะ 💖  
+            เค้ารักอ้วงมากๆ ขอบคุณที่อยู่ด้วยกันเสมอ 💕  
+            ขอให้อยู่เคียงข้างกันไปนานๆ เลยนะ รักที่สุดเลย 💌
+        </p>
         </div>
-<audio id="bg-music" src="music/music.mp3" loop preload="auto"></audio>
+
+        <!-- 🌺 รูปช่อดอกไม้ -->
+        <img src="images/flower.jpg" alt="ช่อดอกไม้" class="flower-image">
+
+        <!-- 🌸 ข้อความชวนกด -->
+        <div class="click-hint">🌸 กดรูปดูจิๆๆ 💕</div>
+    </div>
+        <div class="heart-bg" id="heart-bg"></div>
 
 
-        <script src="script.js"></script>
-    </body>
-</html>
+    <button class="back-btn" onclick="backToMenu()">ย้อนกลับบบ</button>
+    </div>
+
+
+
+
+            <!-- 🌟 Modal -->
+            <div id="modal" class="modal hidden">
+                <div class="modal-content">
+                    <h2 id="modal-title"></h2>
+                    <p id="modal-message"></p>
+                    <button id="closeModal">ปิด</button>
+                </div>
+            </div>
+    <audio id="bg-music" src="music/music.mp3" loop preload="auto"></audio>
+
+
+            <script src="script.js"></script>
+        </body>
+    </html>
