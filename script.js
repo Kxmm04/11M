@@ -262,22 +262,22 @@ function openFilmRoll() {
 
     // 🎬 เล่นวิดีโอทั้งหมดแบบวนและปิดเสียง (รองรับมือถือ)
     videos.forEach((v) => {
-      v.setAttribute("playsinline", "true"); // ✅ ป้องกันเด้งเต็มจอมือถือ
-      v.muted = true;                        // ✅ ต้อง mute ถึง autoplay ได้
-      v.loop = true;                         // ✅ เล่นวน
-      v.autoplay = true;                     // ✅ บังคับให้ autoplay
-      v.load();                              // ✅ รีเฟรช media element
+      v.setAttribute("playsinline", "true");
+      v.muted = true;
+      v.loop = true;
+      v.autoplay = true;
+      v.load();
 
-      // ถ้าเล่นอัตโนมัติไม่ได้ (เช่น iPhone)
-      const tryPlay = () => {
-        v.play().catch(() => {
-          v.addEventListener("click", () => v.play(), { once: true });
-        });
-      };
-
-      // พยายามเล่นหลังโหลด
-      v.addEventListener("canplay", tryPlay);
-      tryPlay();
+      // ✅ เล่นทันทีหลังคลิกปุ่ม (ถือว่าเป็น user interaction)
+      const playPromise = v.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => console.log("เล่นสำเร็จ:", v.src))
+          .catch(() => {
+            console.warn("เล่นไม่ได้:", v.src);
+            v.addEventListener("click", () => v.play(), { once: true });
+          });
+      }
     });
 
     // 🎞️ ถ้ามีฟังก์ชันเลื่อนอัตโนมัติให้เริ่มด้วย
