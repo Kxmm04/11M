@@ -227,8 +227,7 @@ function setupGallery() {
 
 
 
-// 💙 ฟิล์มเวอร์ชันใหม่: เล่นอัตโนมัติ + เลื่อนวน
-// 💙 ฟิล์มเวอร์ชันใหม่: ปรับความยาวอัตโนมัติ + ขนาดเฟรมพอดี
+// 💙 ฟิล์มเวอร์ชันใหม่: ยืดความยาวอัตโนมัติ + เล่นอัตโนมัติ + รองรับมือถือ
 function openFilmRoll() {
   const menuPage = document.getElementById("menu-page");
   const filmPage = document.getElementById("film-roll-page");
@@ -236,7 +235,6 @@ function openFilmRoll() {
   const filmStrip = document.getElementById("film-strip");
   const videos = filmStrip.querySelectorAll("video");
   const frames = filmStrip.querySelectorAll(".frame");
-  
 
   // ซ่อนเมนู / แสดงฟิล์ม
   menuPage.classList.add("hidden");
@@ -250,26 +248,31 @@ function openFilmRoll() {
   filmStrip.style.transform = "translateX(-80%)";
   filmOpened = false;
 
+  // ✅ ปรับความยาวฟิล์มตามจำนวนเฟรม
+  const frameWidth = frames[0]?.offsetWidth || 100;
+  const totalWidth = (frameWidth + 12) * frames.length + 100; // บวกช่องเผื่อท้าย
+  filmStrip.style.width = `${totalWidth}px`;
+
   // เปิดฟิล์มพร้อมเล่นอัตโนมัติ
-setTimeout(() => {
-  filmStrip.classList.add("active");
-  filmWrapper.style.transform = "translateX(-80px)";
-  filmStrip.style.transform = "translateX(0)";
-  filmOpened = true;
+  setTimeout(() => {
+    filmStrip.classList.add("active");
+    filmWrapper.style.transform = "translateX(-80px)";
+    filmStrip.style.transform = "translateX(0)";
+    filmOpened = true;
 
-  // 🎬 เล่นวิดีโอทั้งหมดแบบวนและปิดเสียง (พร้อมแก้ autoplay iPhone)
-  videos.forEach((v) => {
-    v.setAttribute("playsinline", "true");
-    v.muted = true;
-    v.loop = true;
-    v.play().catch(() => {
-      v.addEventListener("click", () => v.play());
+    // 🎬 เล่นวิดีโอทั้งหมดแบบวนและปิดเสียง (รองรับมือถือ)
+    videos.forEach((v) => {
+      v.setAttribute("playsinline", "true"); // ไม่เปิดเต็มจอมือถือ
+      v.muted = true;                        // ปิดเสียง
+      v.loop = true;                         // เล่นวน
+      v.play().catch(() => {
+        v.addEventListener("click", () => v.play());
+      });
     });
-  });
 
-  // 🎞️ เริ่มเลื่อนอัตโนมัติแบบวน
-  startFilmAutoScroll(filmStrip);
-}, 800);
+    // 🎞️ เริ่มเลื่อนอัตโนมัติแบบวน
+    startFilmAutoScroll(filmStrip);
+  }, 800);
 }
 
 // 🔙 หยุดเลื่อนและหยุดวิดีโอเมื่อกลับเมนู
