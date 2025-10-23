@@ -251,29 +251,25 @@ function openFilmRoll() {
   filmOpened = false;
 
   // เปิดฟิล์มพร้อมเล่นอัตโนมัติ
-  setTimeout(() => {
-    filmStrip.classList.add("active");
-    filmWrapper.style.transform = "translateX(-80px)";
-    filmStrip.style.transform = "translateX(0)";
-    filmOpened = true;
+setTimeout(() => {
+  filmStrip.classList.add("active");
+  filmWrapper.style.transform = "translateX(-80px)";
+  filmStrip.style.transform = "translateX(0)";
+  filmOpened = true;
 
-   // 🎬 เล่นวิดีโอทั้งหมดแบบวนและปิดเสียง (พร้อมแก้ autoplay iPhone)
-videos.forEach((v) => {
-  v.setAttribute("playsinline", "true"); // ให้เล่นในกล่อง (จำเป็นสำหรับ iPhone)
-  v.muted = true;                        // ปิดเสียง
-  v.loop = true;                         // เล่นวน
-  v.play().catch(() => {
-    // ถ้า autoplay ไม่ได้ (เช่น iPhone Safari)
-    // ให้รอจนกว่าผู้ใช้จะกดเล่นเอง
-    v.addEventListener("click", () => v.play());
+  // 🎬 เล่นวิดีโอทั้งหมดแบบวนและปิดเสียง (พร้อมแก้ autoplay iPhone)
+  videos.forEach((v) => {
+    v.setAttribute("playsinline", "true");
+    v.muted = true;
+    v.loop = true;
+    v.play().catch(() => {
+      v.addEventListener("click", () => v.play());
+    });
   });
-});
 
-    // 💡 ปรับความยาวฟิล์มอัตโนมัติ (ให้ยาวพอดีกับจำนวนเฟรม)
-    const frameWidth = frames[0].offsetWidth + 12; // 100px + margin 6px ทั้งสองข้าง
-    const totalWidth = frames.length * frameWidth + 100; // บวกช่องซ้ายขวาเล็กน้อย
-    filmStrip.style.width = `${totalWidth}px`;
-  }, 800);
+  // 🎞️ เริ่มเลื่อนอัตโนมัติแบบวน
+  startFilmAutoScroll(filmStrip);
+}, 800);
 }
 
 // 🔙 หยุดเลื่อนและหยุดวิดีโอเมื่อกลับเมนู
